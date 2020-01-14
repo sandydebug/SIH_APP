@@ -1,4 +1,4 @@
-package com.example.sih;
+package com.example.sih.Models;
 
 public class UserProfile {
     public String userEmail;

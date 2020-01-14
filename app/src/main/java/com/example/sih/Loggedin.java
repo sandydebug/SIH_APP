@@ -77,6 +77,9 @@ public class Loggedin extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
         switch(item.getItemId()){
+            case R.id.post:
+                startActivity(new Intent(Loggedin.this,CropPost.class));
+                break;
             case R.id.logout:
 
                 if(firebaseAuth.getCurrentUser()!= null){

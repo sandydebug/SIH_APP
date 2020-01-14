@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    android:background="@android:color/darker_gray">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp" >
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="POST YOUR PRODUCT"
+            android:textColor="@color/blue_greyish"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_marginTop="10dp"
+            android:id="@+id/imageView"
+            android:layout_width="131dp"
+            android:layout_height="126dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:padding="10dp"
+            android:src="@android:color/black" />
+
+        <EditText
+            android:id="@+id/ProductName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:hint="PRODUCT NAME"
+            android:inputType="textCapWords"
+            android:padding="20dp"
+            android:singleLine="true"
+            android:textColor="@color/blue_greyish"
+            android:textColorHint="@color/blue_grey_light"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/white_greyish" />
+
+        <EditText
+            android:id="@+id/ProductPrice"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:hint="PRICE"
+            android:inputType="number"
+            android:padding="20dp"
+            android:singleLine="true"
+            android:textColor="@color/blue_greyish"
+            android:textColorHint="@color/blue_grey_light"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/white_greyish" />
+
+        <EditText
+            android:id="@+id/MaxQuantity"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:hint="MAXIMUM QUANTITY"
+            android:inputType="number"
+            android:padding="20dp"
+            android:singleLine="true"
+            android:textColor="@color/blue_greyish"
+            android:textColorHint="@color/blue_grey_light"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/white_greyish" />
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/ProductionDate"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:drawablePadding="20dp"
+            android:gravity="center_vertical"
+            android:hint="PRODUCTION DATE"
+            android:inputType="date"
+            android:padding="20dp"
+            android:textColor="@color/blue_greyish"
+            android:textColorHint="@color/blue_grey_light"
+            android:textSize="16sp"/>
+        <ImageButton
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_date_range_black_24dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:text="Button"/>
+
+</RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/white_greyish" />
+
+        <EditText
+            android:id="@+id/Description"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:hint="DESCRIPTION ABOUT PRODUCT"
+            android:inputType="textCapWords"
+            android:padding="20dp"
+            android:singleLine="true"
+            android:textColor="@color/blue_greyish"
+            android:textColorHint="@color/blue_grey_light"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/white_greyish" />
+        <Spinner
+            android:id="@+id/Category"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:hint="CATEGORY"
+            android:inputType="textCapWords"
+            android:padding="20dp"
+            android:singleLine="true"
+            android:textColor="@color/blue_greyish"
+            android:textColorHint="@color/blue_grey_light"
+            android:textSize="16sp"
+            />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/white_greyish" />
+
+        <EditText
+            android:id="@+id/Extra"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:hint="EXTRA"
+            android:inputType="textCapWords"
+            android:padding="20dp"
+            android:singleLine="true"
+            android:textColor="@color/blue_greyish"
+            android:textColorHint="@color/blue_grey_light"
+            android:textSize="16sp" />
+
+        <CheckBox
+            android:id="@+id/terms_conditions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="I agree to provide fresh and genuine product and agree to all the terms and conditions"
+            android:textColor="@color/blue_greyish"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/Post"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/loginbutton_selector"
+            android:padding="3dp"
+            android:text="Post Product"
+            android:textColor="@color/background_color"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/terms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="I agree to provide fresh and genuine product"
+            android:textColor="@color/blue_greyish"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+</ScrollView>
