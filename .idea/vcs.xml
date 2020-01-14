@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$USER_HOME$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/BaWaAks" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Logincheck" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/MARK_TASK" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/MVP_DEMO" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Notes" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/RetrofitTutorial" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Storageapp" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/TextRecognitionAndroid" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/apli-ai-android" vcs="Git" />
+  </component>
+</project>
