@@ -112,26 +112,27 @@ public class CropPost extends AppCompatActivity implements  DatePickerDialog.OnD
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            databaseReference.child(category).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(String.valueOf(count)).setValue(new ProductModel(name,price,maxquantity,prodate,about1,extra1,category));
+                            databaseReference.child("POSTS").child(String.valueOf(count)).setValue(new ProductModel(name,price,maxquantity,prodate,about1,extra1,category,FirebaseAuth.getInstance().getCurrentUser().getUid()));
                             Toast.makeText(CropPost.this,"Database Updated!!",Toast.LENGTH_SHORT).show();
                             count=0;
                             progressDialog.dismiss();
+                            StorageReference imageref=storageReference.child("Products").child("POSTS").child(String.valueOf(count));
+                            UploadTask uploadTask=imageref.putFile(uri);
+                            uploadTask.addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(CropPost.this,"Upload Failed",Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    Toast.makeText(CropPost.this,"Uploaded Successfully",Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     }, 1000);
 
-                    StorageReference imageref=storageReference.child("Products").child(firebaseAuth.getUid());
-                    UploadTask uploadTask=imageref.putFile(uri);
-                    uploadTask.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(CropPost.this,"Upload Failed",Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(CropPost.this,"Uploaded Successfully",Toast.LENGTH_SHORT).show();
-                        }
-                    });
+
                     progressDialog.dismiss();
                 }
                 else{
@@ -208,7 +209,7 @@ public class CropPost extends AppCompatActivity implements  DatePickerDialog.OnD
         about1 = editText5.getText().toString();
         extra1 = editText6.getText().toString();
 
-        databaseReference.child(category).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child("POSTS").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {

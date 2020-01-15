@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:id="@+id/conlay"
+    android:background="@drawable/back21"
     tools:context=".MainActivity">
 
    <!-- <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +26,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="100dp"
         android:textColorHint="@android:color/holo_blue_light"
-        app:boxBackgroundColor="@android:color/transparent"
+        app:boxBackgroundColor="@android:color/white"
         app:boxStrokeColor="@android:color/black"
         app:boxStrokeWidth="5dp"
         app:layout_constraintBottom_toTopOf="@+id/password1"
@@ -65,7 +66,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="16dp"
         android:textColorHint="@android:color/holo_blue_light"
-        app:boxBackgroundColor="@android:color/transparent"
+        app:boxBackgroundColor="@android:color/white"
         app:boxStrokeColor="@android:color/black"
         app:boxStrokeWidth="5dp"
         app:layout_constraintBottom_toTopOf="@+id/checkbox"

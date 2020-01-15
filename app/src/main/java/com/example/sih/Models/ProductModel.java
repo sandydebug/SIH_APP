@@ -8,11 +8,12 @@ public class ProductModel {
     public String about;
     public String extra;
     public String cat;
+    public String uid;
 
     public ProductModel() {
     }
 
-    public ProductModel(String proname, String proprice, String maxquantity, String proddate, String about, String extra,String cat) {
+    public ProductModel(String proname, String proprice, String maxquantity, String proddate, String about, String extra,String cat,String uid) {
         this.proname = proname;
         this.proprice = proprice;
         this.maxquantity = maxquantity;
@@ -20,6 +21,7 @@ public class ProductModel {
         this.about = about;
         this.extra = extra;
         this.cat = cat;
+        this.uid = uid;
     }
 
     public String getProname() {
@@ -76,5 +78,13 @@ public class ProductModel {
 
     public void setCat(String cat) {
         this.cat = cat;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }
