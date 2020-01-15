@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,8 +30,11 @@ import com.example.sih.Models.UserProfile;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -54,6 +58,8 @@ public class CropPost extends AppCompatActivity implements  DatePickerDialog.OnD
     Uri uri;
     StorageReference storageReference;
     DatabaseReference databaseReference,check;
+    long count=0;
+    Boolean res=true;
 
 
     @Override
@@ -98,12 +104,21 @@ public class CropPost extends AppCompatActivity implements  DatePickerDialog.OnD
             }
         });
 
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(validate()){
-                    databaseReference.child(category).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(new ProductModel(name,price,maxquantity,prodate,about1,extra1,category));
-                    Toast.makeText(CropPost.this,"Database Updated!!",Toast.LENGTH_SHORT).show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            databaseReference.child(category).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(String.valueOf(count)).setValue(new ProductModel(name,price,maxquantity,prodate,about1,extra1,category));
+                            Toast.makeText(CropPost.this,"Database Updated!!",Toast.LENGTH_SHORT).show();
+                            count=0;
+                            progressDialog.dismiss();
+                        }
+                    }, 1000);
+
                     StorageReference imageref=storageReference.child("Products").child(firebaseAuth.getUid());
                     UploadTask uploadTask=imageref.putFile(uri);
                     uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -186,7 +201,6 @@ public class CropPost extends AppCompatActivity implements  DatePickerDialog.OnD
     }
 
     private boolean validate() {
-        Boolean res=false;
         name = editText1.getText().toString();
         price = editText2.getText().toString();
         maxquantity = editText3.getText().toString();
@@ -194,21 +208,36 @@ public class CropPost extends AppCompatActivity implements  DatePickerDialog.OnD
         about1 = editText5.getText().toString();
         extra1 = editText6.getText().toString();
 
+        databaseReference.child(category).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    count++;
+                }
+                Toast.makeText(CropPost.this,count+"SANDY",Toast.LENGTH_SHORT).show();
+                progressDialog.setMessage("Hang on while we post your product ");
+                progressDialog.show();
+                if (name.isEmpty() || price.isEmpty() || maxquantity.isEmpty()|| prodate.isEmpty() || about1.isEmpty()) {
+                    Toast.makeText(CropPost.this, "Enter all the details", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+                else if(!("Set".equals(imageView.getTag()))){
+                    Toast.makeText(CropPost.this, "Add a image", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+                else{
+                    res=true;}
+            }
 
-        progressDialog.setMessage("Hang on while we post your product ");
-        progressDialog.show();
-        if (name.isEmpty() || price.isEmpty() || maxquantity.isEmpty()|| prodate.isEmpty() || about1.isEmpty()) {
-            Toast.makeText(CropPost.this, "Enter all the details", Toast.LENGTH_SHORT).show();
-            progressDialog.dismiss();
-        }
-        else if(!("Set".equals(imageView.getTag()))){
-            Toast.makeText(CropPost.this, "Add a image", Toast.LENGTH_SHORT).show();
-            progressDialog.dismiss();
-        }
-        else{
-            res=true;}
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         return res;
+
 
     }
 }
