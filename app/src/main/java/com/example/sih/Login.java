@@ -181,7 +181,7 @@ public class Login extends AppCompatActivity {
         Boolean email=firebaseUser.isEmailVerified();
         if(email){
             finish();
-            startActivity(new Intent(Login.this,Loggedin.class));
+            startActivity(new Intent(Login.this,Dashboard.class));
         }
         else{
             Toast.makeText(Login.this,"Verify your mail", Toast.LENGTH_SHORT).show();

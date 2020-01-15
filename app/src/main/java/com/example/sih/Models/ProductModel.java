@@ -9,10 +9,15 @@ public class ProductModel {
     public String extra;
     public String cat;
 
-    public ProductModel() {
+    public ProductModel() {}
+
+    public ProductModel(String proname, String proprice, String proddate) {
+        this.proname = proname;
+        this.proprice = proprice;
+        this.proddate = proddate;
     }
 
-    public ProductModel(String proname, String proprice, String maxquantity, String proddate, String about, String extra,String cat) {
+    public ProductModel(String proname, String proprice, String maxquantity, String proddate, String about, String extra, String cat) {
         this.proname = proname;
         this.proprice = proprice;
         this.maxquantity = maxquantity;

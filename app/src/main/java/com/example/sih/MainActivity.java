@@ -3,6 +3,7 @@ package com.example.sih;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.e("MainActivity", "In MainActivity");
+
         firebaseAuth = FirebaseAuth.getInstance();
         ShimmerTextView textview  = findViewById(R.id.textView5);
         Shimmer shimmer = new Shimmer();
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(MainActivity.this, Loggedin.class);
+                    Intent intent = new Intent(MainActivity.this, Dashboard.class);
                     MainActivity.this.startActivity(intent);
                     MainActivity.this.finish();
                     overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
