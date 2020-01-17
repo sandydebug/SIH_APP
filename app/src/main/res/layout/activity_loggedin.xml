@@ -5,16 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/loginback"
     tools:context="com.example.sih.Loggedin">
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         app:boxBackgroundColor="@android:color/transparent"
         app:boxStrokeColor="@android:color/black"
-        app:boxStrokeWidth="5dp">
+        app:boxStrokeWidth="15dp">
 
         <EditText
             android:id="@+id/edittext"
@@ -27,7 +28,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background"
+        android:background="@drawable/loginback"
         android:padding="4dp"
         android:scrollbars="vertical" />
 

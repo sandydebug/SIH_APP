@@ -3,7 +3,9 @@ package com.example.sih;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -11,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -20,12 +23,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sih.Adapters.PostAdapter;
 import com.example.sih.Models.PostModel;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -36,18 +43,22 @@ public class Loggedin extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private PostAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private FirebaseStorage firebaseStorage;
     private ProgressDialog progressDialog;
     ArrayList<PostModel> items = new ArrayList<PostModel>();
     DatabaseReference orders,users;
+    Handler mHandler;
+    Uri img;
+    private StorageReference storageReference;
 
     public void onBackPressed() {
 
 
-            Intent a = new Intent(Intent.ACTION_MAIN);
-            a.addCategory(Intent.CATEGORY_HOME);
-            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(a);
-            super.onBackPressed();
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+        super.onBackPressed();
 
 
     }
@@ -57,8 +68,15 @@ public class Loggedin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loggedin);
 
+        this.mHandler = new Handler();
+
+        this.mHandler.postDelayed(m_Runnable,5000);
+
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
         progressDialog=new ProgressDialog(this);
+        storageReference=firebaseStorage.getReference();
+
         progressDialog.setMessage("Hang on while we load the posts ");
         progressDialog.show();
 
@@ -80,19 +98,25 @@ public class Loggedin extends AppCompatActivity {
             }
         });
 
-
-
         orders = FirebaseDatabase.getInstance().getReference("PRODUCTS");
         orders.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     for(int i =0;i<postSnapshot.getChildrenCount();i++) {
-                        items.add(new PostModel(R.drawable.ic_person_black_24dp,postSnapshot.child(String.valueOf(i)).child("proname").getValue().toString(),"₹ "+postSnapshot.child(String.valueOf(i)).child("proprice").getValue().toString() ));
+                        if(postSnapshot.child(String.valueOf(i)).child("cat").getValue().toString().equals("Vegetables")){
+                            items.add(new PostModel(postSnapshot.child(String.valueOf(i)).child("proname").getValue().toString(),"Rs. "+postSnapshot.child(String.valueOf(i)).child("proprice").getValue().toString(),postSnapshot.child(String.valueOf(i)).child("proddate").getValue().toString(),R.drawable.veggies ,postSnapshot.child(String.valueOf(i)).getKey().toString()));}
+
+                        else if(postSnapshot.child(String.valueOf(i)).child("cat").getValue().toString().equals("Fruits")){
+                            items.add(new PostModel(postSnapshot.child(String.valueOf(i)).child("proname").getValue().toString(),"Rs. "+postSnapshot.child(String.valueOf(i)).child("proprice").getValue().toString(),postSnapshot.child(String.valueOf(i)).child("proddate").getValue().toString(),R.drawable.fruit ,postSnapshot.child(String.valueOf(i)).getKey().toString()));}
+
+                        else if(postSnapshot.child(String.valueOf(i)).child("cat").getValue().toString().equals("Cereals/Pulses")){
+                            items.add(new PostModel(postSnapshot.child(String.valueOf(i)).child("proname").getValue().toString(),"Rs. "+postSnapshot.child(String.valueOf(i)).child("proprice").getValue().toString(),postSnapshot.child(String.valueOf(i)).child("proddate").getValue().toString(),R.drawable.cereals ,postSnapshot.child(String.valueOf(i)).getKey().toString()));}
+
                     }
                 }
                 if(items.isEmpty()){
-                    items.add(new PostModel(R.drawable.ic_person_black_24dp,"NO ORDERS YET.","NULL"));
+                    items.add(new PostModel(null,"NO ORDERS YET.","NULL",R.drawable.ic_person_black_24dp,null));
                 }
                 progressDialog.dismiss();
                 buildRecyclerView();
@@ -103,6 +127,8 @@ public class Loggedin extends AppCompatActivity {
 
             }
         });
+
+
 
     }
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -175,4 +201,18 @@ public class Loggedin extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }
+
+    private final Runnable m_Runnable = new Runnable()
+    {
+        public void run()
+
+        {
+            Toast.makeText(Loggedin.this,"in runnable",Toast.LENGTH_SHORT).show();
+
+            Loggedin.this.mHandler.postDelayed(m_Runnable, 5000);
+        }
+
+    };//runnable
+
+
 }

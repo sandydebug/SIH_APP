@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
@@ -131,8 +132,6 @@ public class CropPost extends AppCompatActivity implements  DatePickerDialog.OnD
                             });
                         }
                     }, 1000);
-
-
                     progressDialog.dismiss();
                 }
                 else{

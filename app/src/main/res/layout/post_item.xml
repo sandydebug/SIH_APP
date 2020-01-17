@@ -27,8 +27,8 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_gravity="center"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@drawable/user"
                 android:contentDescription="Product Image"
                 android:scaleType="fitXY"
