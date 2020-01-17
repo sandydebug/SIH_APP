@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -46,6 +47,7 @@ public class Loggedin extends AppCompatActivity {
     private ProgressDialog progressDialog;
     ArrayList<PostModel> items = new ArrayList<PostModel>();
     DatabaseReference orders,users;
+    Handler mHandler;
     Uri img;
     private StorageReference storageReference;
 
@@ -65,6 +67,10 @@ public class Loggedin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loggedin);
+
+        this.mHandler = new Handler();
+
+        this.mHandler.postDelayed(m_Runnable,5000);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
@@ -99,18 +105,18 @@ public class Loggedin extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     for(int i =0;i<postSnapshot.getChildrenCount();i++) {
                         if(postSnapshot.child(String.valueOf(i)).child("cat").getValue().toString().equals("Vegetables")){
-                        items.add(new PostModel(postSnapshot.child(String.valueOf(i)).child("proname").getValue().toString(),"Rs. "+postSnapshot.child(String.valueOf(i)).child("proprice").getValue().toString() ,postSnapshot.child(String.valueOf(i)).child("proddate").getValue().toString(),R.drawable.veggies));}
+                        items.add(new PostModel(postSnapshot.child(String.valueOf(i)).child("proname").getValue().toString(),"Rs. "+postSnapshot.child(String.valueOf(i)).child("proprice").getValue().toString(),postSnapshot.child(String.valueOf(i)).child("proddate").getValue().toString(),R.drawable.veggies ,postSnapshot.child(String.valueOf(i)).getKey().toString()));}
 
                         else if(postSnapshot.child(String.valueOf(i)).child("cat").getValue().toString().equals("Fruits")){
-                            items.add(new PostModel(postSnapshot.child(String.valueOf(i)).child("proname").getValue().toString(),"Rs. "+postSnapshot.child(String.valueOf(i)).child("proprice").getValue().toString() ,postSnapshot.child(String.valueOf(i)).child("proddate").getValue().toString(),R.drawable.fruit));}
+                            items.add(new PostModel(postSnapshot.child(String.valueOf(i)).child("proname").getValue().toString(),"Rs. "+postSnapshot.child(String.valueOf(i)).child("proprice").getValue().toString(),postSnapshot.child(String.valueOf(i)).child("proddate").getValue().toString(),R.drawable.fruit ,postSnapshot.child(String.valueOf(i)).getKey().toString()));}
 
                         else if(postSnapshot.child(String.valueOf(i)).child("cat").getValue().toString().equals("Cereals/Pulses")){
-                            items.add(new PostModel(postSnapshot.child(String.valueOf(i)).child("proname").getValue().toString(),"Rs. "+postSnapshot.child(String.valueOf(i)).child("proprice").getValue().toString() ,postSnapshot.child(String.valueOf(i)).child("proddate").getValue().toString(),R.drawable.cereals));}
+                            items.add(new PostModel(postSnapshot.child(String.valueOf(i)).child("proname").getValue().toString(),"Rs. "+postSnapshot.child(String.valueOf(i)).child("proprice").getValue().toString(),postSnapshot.child(String.valueOf(i)).child("proddate").getValue().toString(),R.drawable.cereals ,postSnapshot.child(String.valueOf(i)).getKey().toString()));}
 
                     }
                 }
                 if(items.isEmpty()){
-                    items.add(new PostModel(null,"NO ORDERS YET.","NULL",R.drawable.ic_person_black_24dp));
+                    items.add(new PostModel(null,"NO ORDERS YET.","NULL",R.drawable.ic_person_black_24dp,null));
                 }
                 progressDialog.dismiss();
                 buildRecyclerView();
@@ -195,6 +201,18 @@ public class Loggedin extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }
+
+    private final Runnable m_Runnable = new Runnable()
+    {
+        public void run()
+
+        {
+            Toast.makeText(Loggedin.this,"in runnable",Toast.LENGTH_SHORT).show();
+
+            Loggedin.this.mHandler.postDelayed(m_Runnable, 5000);
+        }
+
+    };//runnable
 
 
 }

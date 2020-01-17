@@ -1,10 +1,12 @@
 package com.example.sih.Adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.sih.Models.PostModel;
 import com.example.sih.Models.ProductModel;
+import com.example.sih.MyProfile;
 import com.example.sih.R;
 import com.squareup.picasso.Picasso;
 
@@ -49,8 +52,8 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.PostViewHolde
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostAdapter.PostViewHolder holder, int position) {
-        PostModel currentItem = mList.get(position);
+    public void onBindViewHolder(@NonNull PostAdapter.PostViewHolder holder, final int position) {
+        final PostModel currentItem = mList.get(position);
 
         //holder.mImageView.setImageURI(currentItem.getImageResource());
         //Picasso.with(holder.mImageView.getContext()).load(currentItem.getImageResource()).into(holder.mImageView);
@@ -59,6 +62,15 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.PostViewHolde
         holder.mTextView2.setText(currentItem.getText2());
         holder.mTextView3.setText(currentItem.getText3());
         holder.mImageView.setImageResource(currentItem.getText4());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), MyProfile.class);
+                    intent.putExtra("Position",Integer.parseInt(currentItem.getmText5()));
+                    v.getContext().startActivity(intent);
+                    Toast.makeText(v.getContext(), position + " ",Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

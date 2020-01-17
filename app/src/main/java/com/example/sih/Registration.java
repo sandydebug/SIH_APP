@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -54,6 +55,7 @@ public class Registration extends AppCompatActivity  implements DatePickerDialog
     Uri uri;
     StorageReference storageReference;
     DatabaseReference databaseReference,check;
+    private CheckBox checkBox;
 
 
     @Override
@@ -93,7 +95,7 @@ public class Registration extends AppCompatActivity  implements DatePickerDialog
             public void onClick(View v) {
                 Intent intent=new Intent();
                 intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setAction(Intent.ACTION_PICK);
                 startActivityForResult(Intent.createChooser(intent,"Select Image"),PICK_IMAGE);
             }
         });
@@ -142,6 +144,7 @@ public class Registration extends AppCompatActivity  implements DatePickerDialog
     }
 
     private void intialize() {
+        checkBox = findViewById(R.id.terms_conditions);
         editText1 = (EditText) findViewById(R.id.fullName);
         editText2 = (EditText) findViewById(R.id.userEmailId);
         editText3 = (EditText) findViewById(R.id.password);
@@ -204,6 +207,10 @@ public class Registration extends AppCompatActivity  implements DatePickerDialog
             Toast.makeText(Registration.this, "Passwords Don't Match", Toast.LENGTH_SHORT).show();
             editText4.setError("Password Don't Match");
             editText4.requestFocus();
+            progressDialog.dismiss();
+        }
+        else if(!checkBox.isChecked()){
+            Toast.makeText(Registration.this, "Accept the terms and condition", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
         }
         else{
