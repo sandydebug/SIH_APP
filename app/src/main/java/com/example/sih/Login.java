@@ -36,7 +36,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import jp.wasabeef.blurry.Blurry;
+//import jp.wasabeef.blurry.Blurry;
 
 public class Login extends AppCompatActivity {
 
@@ -191,7 +191,7 @@ public class Login extends AppCompatActivity {
         Boolean email=firebaseUser.isEmailVerified();
         if(email){
             finish();
-            startActivity(new Intent(Login.this,Dashboard.class));
+            startActivity(new Intent(Login.this,Loggedin.class));
         }
         else{
             Toast.makeText(Login.this,"Verify your mail", Toast.LENGTH_SHORT).show();

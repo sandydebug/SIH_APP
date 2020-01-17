@@ -88,7 +88,7 @@ public class Loggedin extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     for(int i =0;i<postSnapshot.getChildrenCount();i++) {
-                        items.add(new PostModel(R.drawable.ic_person_black_24dp,postSnapshot.child(String.valueOf(i)).child("proname").getValue().toString(),"Rs. "+postSnapshot.child(String.valueOf(i)).child("proprice").getValue().toString() ));
+                        items.add(new PostModel(R.drawable.ic_person_black_24dp,postSnapshot.child(String.valueOf(i)).child("proname").getValue().toString(),"₹ "+postSnapshot.child(String.valueOf(i)).child("proprice").getValue().toString() ));
                     }
                 }
                 if(items.isEmpty()){
@@ -103,8 +103,6 @@ public class Loggedin extends AppCompatActivity {
 
             }
         });
-
-
 
     }
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -177,6 +175,4 @@ public class Loggedin extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }
-
-
 }

@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                    Intent intent = new Intent(MainActivity.this, Loggedin.class);
                     MainActivity.this.startActivity(intent);
                     MainActivity.this.finish();
                     overridePendingTransition(R.anim.mainfadein, R.anim.splashfadeout);
