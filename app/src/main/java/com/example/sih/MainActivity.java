@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.e("MainActivity", "In MainActivity");
-
         firebaseAuth = FirebaseAuth.getInstance();
         ShimmerTextView textview  = findViewById(R.id.textView5);
         Shimmer shimmer = new Shimmer();

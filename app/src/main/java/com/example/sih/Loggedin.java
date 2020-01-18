@@ -11,17 +11,23 @@ import android.text.Html;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sih.Adapters.PostAdapter;
+import com.example.sih.Models.DrawerHeader;
+import com.example.sih.Models.DrawerMenuItem;
 import com.example.sih.Models.PostModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.mindorks.placeholderview.PlaceHolderView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -50,6 +57,9 @@ public class Loggedin extends AppCompatActivity {
     Handler mHandler;
     Uri img;
     private StorageReference storageReference;
+    private PlaceHolderView mDrawerView;
+    private DrawerLayout mDrawer;
+    private Toolbar mToolbar;
 
     public void onBackPressed() {
 
@@ -79,6 +89,12 @@ public class Loggedin extends AppCompatActivity {
 
         progressDialog.setMessage("Hang on while we load the posts ");
         progressDialog.show();
+
+        mDrawer = findViewById(R.id.drawerLayout);
+        mDrawerView = findViewById(R.id.drawerView);
+        mToolbar = findViewById(R.id.toolbar);
+        setupDrawer();
+
 
         EditText editText = findViewById(R.id.edittext);
         editText.addTextChangedListener(new TextWatcher() {
@@ -214,5 +230,29 @@ public class Loggedin extends AppCompatActivity {
 
     };//runnable
 
+    private void setupDrawer() {
+        mDrawerView
+                .addView(new DrawerHeader())
+                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_PROFILE))
+                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_POST))
+                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_NOTIFICATIONS))
+                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_TERMS))
+                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_SETTINGS))
+                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_LOGOUT));
+
+        ActionBarDrawerToggle  drawerToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.open_drawer, R.string.close_drawer){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+        };
+
+        mDrawer.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+    }
 
 }
