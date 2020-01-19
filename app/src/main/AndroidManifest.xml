@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyProfile"></activity>
+        <activity android:name=".CropProfile"/>
         <activity android:name=".CropPost" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -28,6 +28,7 @@
         <activity android:name=".Login" />
         <activity android:name=".Loggedin" />
         <activity android:name=".Registration" />
+        <activity android:name=".Profile"/>
     </application>
 
 </manifest>

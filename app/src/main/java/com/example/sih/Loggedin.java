@@ -60,6 +60,7 @@ public class Loggedin extends AppCompatActivity {
     private PlaceHolderView mDrawerView;
     private DrawerLayout mDrawer;
     private Toolbar mToolbar;
+    private Button mLogoutButton;
 
     public void onBackPressed() {
 
@@ -93,8 +94,31 @@ public class Loggedin extends AppCompatActivity {
         mDrawer = findViewById(R.id.drawerLayout);
         mDrawerView = findViewById(R.id.drawerView);
         mToolbar = findViewById(R.id.toolbar);
+        mLogoutButton = findViewById(R.id.logoutButton);
         setupDrawer();
 
+        mLogoutButton.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                if(firebaseAuth.getCurrentUser()!= null){
+                    new AlertDialog.Builder(Loggedin.this)
+                            .setTitle("LOGOUT")
+                            .setMessage("Are you sure you want to logout ?  I suggest spend some more time :) ")
+
+                            .setPositiveButton(Html.fromHtml("<font color='#FF7F27'>Yes</font>"), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    firebaseAuth.signOut();
+                                    //mGoogleSignInClient.signOut();
+                                    finish();
+                                    startActivity(new Intent(Loggedin.this,Login.class));
+                                }
+                            })
+                            .setNegativeButton(Html.fromHtml("<font color='#FF7F27'>Cancel</font>"), null)
+                            .setIcon(android.R.drawable.ic_lock_power_off)
+                            .show();}
+            }
+        });
 
         EditText editText = findViewById(R.id.edittext);
         editText.addTextChangedListener(new TextWatcher() {
@@ -147,55 +171,8 @@ public class Loggedin extends AppCompatActivity {
 
 
     }
-    public boolean onCreateOptionsMenu(Menu menu) {
 
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menubar , menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
-        switch(item.getItemId()){
-            case R.id.post:
-                startActivity(new Intent(Loggedin.this,CropPost.class));
-                break;
-            case R.id.logout:
-
-                if(firebaseAuth.getCurrentUser()!= null){
-                    new AlertDialog.Builder(this)
-                            .setTitle("LOGOUT")
-                            .setMessage("Are you sure you want to logout ?  I suggest spend some more time :) ")
-
-                            .setPositiveButton(Html.fromHtml("<font color='#FF7F27'>Yes</font>"), new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    firebaseAuth.signOut();
-                                    //mGoogleSignInClient.signOut();
-                                    finish();
-                                    startActivity(new Intent(Loggedin.this,Login.class));
-                                }
-                            })
-                            .setNegativeButton(Html.fromHtml("<font color='#FF7F27'>Cancel</font>"), null)
-                            .setIcon(android.R.drawable.ic_lock_power_off)
-                            .show();}
-               /* else{
-                    mGoogleSignInClient.signOut()
-                            .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(Loggedin.this,"Successfully signed out",Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(Loggedin.this, Login.class));
-                                    finish();
-                                }
-                            });
-
-                }*/
-                break;
-
-        }
-        return true;
-    }
     private void filter(String text) {
         ArrayList<PostModel> filteredList = new ArrayList<>();
 
@@ -230,15 +207,14 @@ public class Loggedin extends AppCompatActivity {
 
     };//runnable
 
-    private void setupDrawer() {
+    public void setupDrawer() {
         mDrawerView
                 .addView(new DrawerHeader())
                 .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_PROFILE))
                 .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_POST))
                 .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_CONTACT))
                 .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_ABOUT))
-                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_SETTINGS))
-                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_LOGOUT));
+                .addView(new DrawerMenuItem(this.getApplicationContext(), DrawerMenuItem.DRAWER_MENU_ITEM_SETTINGS));
 
         ActionBarDrawerToggle  drawerToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.open_drawer, R.string.close_drawer){
             @Override
@@ -249,6 +225,7 @@ public class Loggedin extends AppCompatActivity {
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
             }
+
         };
 
         mDrawer.addDrawerListener(drawerToggle);

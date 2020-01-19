@@ -11,12 +11,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.sih.Models.PostModel;
-import com.example.sih.Models.ProductModel;
-import com.example.sih.MyProfile;
+import com.example.sih.CropProfile;
 import com.example.sih.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -65,7 +62,7 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.PostViewHolde
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), MyProfile.class);
+                    Intent intent = new Intent(v.getContext(), CropProfile.class);
                     intent.putExtra("Position",Integer.parseInt(currentItem.getmText5()));
                     v.getContext().startActivity(intent);
                     Toast.makeText(v.getContext(), position + " ",Toast.LENGTH_SHORT).show();

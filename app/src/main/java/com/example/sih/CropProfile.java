@@ -6,15 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.UserHandle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.example.sih.Models.PostModel;
 import com.example.sih.Models.UserProfile;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,9 +21,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-
-public class MyProfile extends AppCompatActivity {
+public class CropProfile extends AppCompatActivity {
 
     TextView textView1,textView2,textView3,textView4,textView5;
     ImageView imageView;
@@ -42,7 +35,7 @@ public class MyProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_profile);
+        setContentView(R.layout.activity_crop_profile);
 
         initialize();
         firebaseStorage = FirebaseStorage.getInstance();
