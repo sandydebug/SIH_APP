@@ -47,6 +47,7 @@ public class CropProfile extends AppCompatActivity {
         }
 
         progressDialog.setMessage("Hang on while we load the posts ");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
         DatabaseReference databaseReference=firebaseDatabase.getReference();

@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -98,43 +99,23 @@ public class Loggedin extends AppCompatActivity implements NavigationView.OnNavi
         storageReference=firebaseStorage.getReference();
 
         progressDialog.setMessage("Hang on while we load the posts ");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
         mDrawer = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.drawerView);
         mToolbar = findViewById(R.id.toolbar);
-        mLogoutButton = findViewById(R.id.logoutButton);
         View header = navigationView.getHeaderView(0);
-         useName=header.findViewById(R.id.nameTxt);
+        useName=header.findViewById(R.id.nameTxt);
         useEmail =header.findViewById(R.id.emailTxt);
         circularImageView = header.findViewById(R.id.profileImageView);
         navigationView.setNavigationItemSelectedListener(this);
+        mToolbar.setTitle("KartVest");
+        mToolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(mToolbar);
 
             setupDrawer();
             setProfile();
-
-     /*   mLogoutButton.setOnClickListener(new Button.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                if(firebaseAuth.getCurrentUser()!= null){
-                    new AlertDialog.Builder(Loggedin.this)
-                            .setTitle("LOGOUT")
-                            .setMessage("Are you sure you want to logout ?  I suggest spend some more time :) ")
-
-                            .setPositiveButton(Html.fromHtml("<font color='#FF7F27'>Yes</font>"), new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    firebaseAuth.signOut();
-                                    //mGoogleSignInClient.signOut();
-                                    finish();
-                                    startActivity(new Intent(Loggedin.this,Login.class));
-                                }
-                            })
-                            .setNegativeButton(Html.fromHtml("<font color='#FF7F27'>Cancel</font>"), null)
-                            .setIcon(android.R.drawable.ic_lock_power_off)
-                            .show();}
-            }
-        });*/
 
         EditText editText = findViewById(R.id.edittext);
         editText.addTextChangedListener(new TextWatcher() {
@@ -172,7 +153,7 @@ public class Loggedin extends AppCompatActivity implements NavigationView.OnNavi
                     }
                 }
                 if(items.isEmpty()){
-                    items.add(new PostModel(null,"NO ORDERS YET.","NULL",R.drawable.ic_person_black_24dp,null));
+                    items.add(new PostModel(null,"NO POSTS YET ","NULL",R.drawable.ic_person_black_24dp,null));
                 }
                 progressDialog.dismiss();
                 buildRecyclerView();
@@ -292,8 +273,8 @@ public class Loggedin extends AppCompatActivity implements NavigationView.OnNavi
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 UserProfile userProfile=dataSnapshot.getValue(UserProfile.class);
-                useName.setText("Name : "+ userProfile.getUserName());
-                useEmail.setText("Email : "+userProfile.getUserEmail());
+                useName.setText( userProfile.getUserName());
+                useEmail.setText(userProfile.getUserEmail());
 
 
             }
@@ -318,5 +299,34 @@ public class Loggedin extends AppCompatActivity implements NavigationView.OnNavi
             }
         });
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menubar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.logout){
+            if(firebaseAuth.getCurrentUser()!= null){
+                new AlertDialog.Builder(this)
+                        .setTitle("LOGOUT")
+                        .setMessage("Are you sure you want to logout ?  I suggest spend some more time :) ")
+
+                        .setPositiveButton(Html.fromHtml("<font color='#FF7F27'>Yes</font>"), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                firebaseAuth.signOut();
+                                finish();
+                                startActivity(new Intent(Loggedin.this,Login.class));
+                            }
+                        })
+                        .setNegativeButton(Html.fromHtml("<font color='#FF7F27'>Cancel</font>"), null)
+                        .setIcon(android.R.drawable.ic_lock_power_off)
+                        .show();}
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }

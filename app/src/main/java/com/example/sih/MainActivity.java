@@ -8,6 +8,7 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
 
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         ShimmerTextView textview  = findViewById(R.id.textView5);
+        CircularImageView circularImageView = findViewById(R.id.applogo);
         Shimmer shimmer = new Shimmer();
         shimmer.start(textview);
 

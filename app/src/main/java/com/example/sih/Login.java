@@ -68,7 +68,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_login);
 
       /*  View view = findViewById(R.id.conlay);
@@ -170,6 +170,7 @@ public class Login extends AppCompatActivity {
     private void validate(String username, String password){
 
         progressDialog.setMessage("Hang on while we connect you ");
+        progressDialog.setCancelable(false);
         progressDialog.show();
         firebaseAuth.signInWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override

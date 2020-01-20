@@ -20,13 +20,20 @@
             android:layout_marginTop="200dp"
             >-->
 
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/kartvest"/>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/name1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="50dp"
             android:layout_marginRight="10dp"
             android:textColorHint="@android:color/holo_blue_light"
             app:boxBackgroundColor="#F0FFFF"
@@ -42,6 +49,7 @@
                 android:layout_marginRight="8dp"
                 android:ems="10"
                 android:hint="Email"
+                android:textSize="24sp"
                 android:inputType="textPersonName"
                 android:textColor="@android:color/black" />
 
@@ -52,6 +60,7 @@
             android:id="@+id/password1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:textColorHint="@android:color/holo_blue_light"
@@ -68,6 +77,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
                 android:ems="10"
+                android:textSize="24sp"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:textColor="@android:color/black" />
@@ -122,7 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="288dp"
+            android:layout_marginBottom="200dp"
             android:text="Forgot Password?"
             android:textColor="@android:color/black"
             android:textSize="20sp" />

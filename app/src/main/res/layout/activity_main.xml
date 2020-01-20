@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@android:color/black"
     tools:context=".MainActivity">
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center"
+        android:src="@drawable/kartvest"
+        android:id="@+id/applogo"/>
 
     <com.romainpiel.shimmer.ShimmerTextView
         android:id="@+id/textView5"
         android:layout_width="350dp"
         android:layout_height="200dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:text="SIH APP"
+        android:text="KARTVEST"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="#FCF9F9"
@@ -29,4 +38,4 @@
         app:layout_constraintVertical_bias="0.857"
         app:reflectionColor="#000000" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

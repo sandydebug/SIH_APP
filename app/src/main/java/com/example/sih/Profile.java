@@ -24,15 +24,14 @@ import com.squareup.picasso.Picasso;
 
 public class Profile extends AppCompatActivity {
 
-    TextView textView1,textView2,textView3;
+    TextView textView1,textView2,textView3,textView4,textView5;
     ImageView imageView;
     private ProgressDialog progressDialog;
-    DatabaseReference posts;
+    DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
     FirebaseStorage firebaseStorage;
     FirebaseAuth firebaseAuth;
     private StorageReference storageReference;
-    private int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,31 +43,48 @@ public class Profile extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        progressDialog=new ProgressDialog(this);
-        storageReference=firebaseStorage.getReference();
-        if(getIntent()!=null){
-            pos=getIntent().getIntExtra("Position",0);
-        }
+        progressDialog = new ProgressDialog(this);
+        storageReference = firebaseStorage.getReference();
 
-        progressDialog.setMessage("Hang on while we load the posts ");
+        progressDialog.setMessage("Hang on while we load your profile ");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
-        if (firebaseAuth.getCurrentUser() != null) {
-            textView1.setText(firebaseAuth.getCurrentUser().getDisplayName());
-            textView1.setText(firebaseAuth.getCurrentUser().getEmail());
-            textView3.setText(firebaseAuth.getCurrentUser().getPhoneNumber());
-            imageView.setImageURI(firebaseAuth.getCurrentUser().getPhotoUrl());
-        } else {
-            Toast.makeText(this, "Could not load User", Toast.LENGTH_SHORT).show();
-            finish();
-        }
+        databaseReference=firebaseDatabase.getReference();
+        databaseReference.child("PROFILES").child("USERS").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-        StorageReference storageReference=firebaseStorage.getReference();
-        storageReference.child("Products").child("POSTS").child(String.valueOf(pos)).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                UserProfile userProfile=dataSnapshot.getValue(UserProfile.class);
+                if (firebaseAuth.getCurrentUser() != null) {
+                    textView1.setText(userProfile.getUserName());
+                    textView2.setText(userProfile.getUserEmail());
+                    textView3.setText(userProfile.getPhonenumber());
+                    textView4.setText(userProfile.getLocation()+",PIN:"+userProfile.getPincode());
+                    textView5.setText(userProfile.getdob());
+                } else {
+                    Toast.makeText(Profile.this, "Could not load User", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                //  Toast.makeText(start.this,databaseError.getCode(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        storageReference=firebaseStorage.getReference();
+        storageReference.child("Images").child(firebaseAuth.getCurrentUser().getUid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
 
                 Picasso.get().load(uri).fit().into(imageView);
+                progressDialog.dismiss();
             }
         });
 
@@ -78,6 +94,8 @@ public class Profile extends AppCompatActivity {
         textView1 = findViewById(R.id.name);
         textView2 = findViewById(R.id.email);
         textView3 = findViewById(R.id.phone);
+        textView4 = findViewById(R.id.location);
+        textView5 = findViewById(R.id.dob);
         imageView = findViewById(R.id.itemPic);
 
     }
