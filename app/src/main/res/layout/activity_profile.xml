@@ -3,7 +3,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradientbackground">
+    android:background="@drawable/gradientbackground_blue">
 
     <LinearLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -16,7 +16,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gradientbackground"
                 android:orientation="vertical">
 
                 <com.mikhaellopez.circularimageview.CircularImageView

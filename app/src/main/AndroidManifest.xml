@@ -29,6 +29,7 @@
         <activity android:name=".Loggedin" />
         <activity android:name=".Registration" />
         <activity android:name=".Profile"/>
+        <activity android:name=".UnderConstruction"/>
     </application>
 
 </manifest>

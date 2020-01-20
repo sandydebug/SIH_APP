@@ -3,7 +3,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="fill_parent"
     android:layout_width="fill_parent"
-    android:background="@android:color/darker_gray">
+    android:background="@drawable/gradientbackground_grey">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="POST YOUR PRODUCT"
-            android:textColor="@color/blue_greyish"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -30,7 +30,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:padding="10dp"
-            android:src="@android:color/black" />
+            android:src="@drawable/head_profile" />
 
         <EditText
             android:id="@+id/ProductName"
@@ -44,7 +44,7 @@
             android:inputType="textCapWords"
             android:padding="20dp"
             android:singleLine="true"
-            android:textColor="@color/blue_greyish"
+            android:textColor="#E0E0E0"
             android:textColorHint="@color/blue_grey_light"
             android:textSize="16sp" />
 

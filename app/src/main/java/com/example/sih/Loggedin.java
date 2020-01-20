@@ -254,6 +254,7 @@ public class Loggedin extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(new Intent(Loggedin.this,CropPost.class));
                 break;
             case R.id.contact:
+                startActivity(new Intent(Loggedin.this,UnderConstruction.class));
                 break;
             case R.id.about:
                /* BottomSheetInfo bottomSheet = new BottomSheetInfo();
@@ -292,8 +293,8 @@ public class Loggedin extends AppCompatActivity implements NavigationView.OnNavi
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 UserProfile userProfile=dataSnapshot.getValue(UserProfile.class);
-                useName.setText("Name : "+ userProfile.getUserName());
-                useEmail.setText("Email : "+userProfile.getUserEmail());
+                useName.setText(userProfile.getUserName());
+                useEmail.setText(userProfile.getUserEmail());
 
 
             }

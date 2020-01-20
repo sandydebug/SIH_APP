@@ -54,10 +54,25 @@ public class Profile extends AppCompatActivity {
         progressDialog.show();
 
         if (firebaseAuth.getCurrentUser() != null) {
-            textView1.setText(firebaseAuth.getCurrentUser().getDisplayName());
-            textView1.setText(firebaseAuth.getCurrentUser().getEmail());
-            textView3.setText(firebaseAuth.getCurrentUser().getPhoneNumber());
+            textView2.setText(firebaseAuth.getCurrentUser().getEmail());
             imageView.setImageURI(firebaseAuth.getCurrentUser().getPhotoUrl());
+
+            DatabaseReference databaseReference=firebaseDatabase.getReference();
+            databaseReference.child("PROFILES").child("USERS").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    UserProfile userProfile=dataSnapshot.getValue(UserProfile.class);
+                    textView1.setText(userProfile.getUserName());
+                    textView3.setText(userProfile.getPhonenumber());
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         } else {
             Toast.makeText(this, "Could not load User", Toast.LENGTH_SHORT).show();
             finish();
@@ -72,6 +87,7 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        progressDialog.dismiss();
 
     }
     public void initialize(){
